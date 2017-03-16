@@ -46,13 +46,18 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  delay(1000);
+  delay(100);
 
   if (zeta.checkReceived()) {
     zeta.readPacket((uint8_t*)data);
     Serial.print("> ");
     Serial.write(data, ZETARF_PACKET_LENGTH);
-    Serial.print('\n');
+    Serial.println();
+    // Now get the RSSI (Signal Strength)
+    int rssi = zeta.readCurrentRSSI();
+    Serial.print("RSSI Currently: ");
+    Serial.print(rssi,OCT);
+    Serial.println();
   } else {
     Serial.println("No data received");
   }
